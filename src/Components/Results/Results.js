@@ -28,9 +28,10 @@ const ResultsContainer = styled.div`
   width: 420px;
   border: dashed 1px lightgray;
   display: flex;
-  height: 50px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 `;
 
 export const Results = ({ amount, onResetClick }) => (
@@ -41,7 +42,10 @@ export const Results = ({ amount, onResetClick }) => (
     </TitleContainer>    
     <ResultsContainer>      
       <Text size="h3" bold>Results:</Text>
-      <Text size="h5" italic>This is the tax data for a {amount} CAD annual gross income.</Text>
+      <Text size="h5" italic>
+        This is the tax data for a{' '}
+        <Text size="h5" margin="0" bold>{amount}</Text> CAD annual gross income.
+      </Text>
       <Button type="button" text="Try again" onClick={onResetClick} />
     </ResultsContainer>
     <Footer />

@@ -20,10 +20,10 @@ const StyledSpan = styled.span`
   ${({ bold }) => bold && 'font-weight: bold;'};
   ${({ block }) => block && 'display: block;'};
   text-align: ${({ align }) => align || 'center'};
-  margin: 10px;
+  margin: ${({ margin }) => margin};
 `;
 
-export const Text = ({ children, color, size, italic, bold, align, block }) => (
+export const Text = ({ children, color, size, italic, bold, align, block, margin }) => (
   <StyledSpan
     color={color}
     size={size}
@@ -31,6 +31,7 @@ export const Text = ({ children, color, size, italic, bold, align, block }) => (
     bold={bold}
     align={align}
     block={block}
+    margin={margin}
   >
     {children}
   </StyledSpan>
@@ -51,6 +52,7 @@ Text.propTypes = {
 
 Text.defaultProps = {
   size: 'h5',
+  margin: '10px',
 };
 
 export default Text;
