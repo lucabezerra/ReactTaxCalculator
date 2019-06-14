@@ -5,9 +5,8 @@ import Text from '../Text';
 
 
 const Container = styled.div`
-  position: absolute;
-  bottom: 10px;
   line-height: 0.8;
+  margin-top: 70px;
 `;
 
 export const Footer = () => (
