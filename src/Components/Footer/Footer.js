@@ -6,7 +6,7 @@ import Text from '../Text';
 
 const Container = styled.div`
   line-height: 0.8;
-  margin-top: 70px;
+  margin-top: 50px;
 `;
 
 export const Footer = () => (

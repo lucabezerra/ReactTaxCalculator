@@ -1,7 +1,32 @@
 import React from 'react';
+import styled from 'styled-components';
 
+import Text from '../Text';
 import Calculator from '../Calculator';
 import Results from '../Results';
+import Footer from '../Footer';
+
+
+const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+
+  li {
+    list-style-type: decimal;
+  }
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 40px;
+`;
 
 
 export class SceneManager extends React.Component {
@@ -32,7 +57,16 @@ export class SceneManager extends React.Component {
       :
       <Calculator onCalculateClick={this.onCalculateClick} />
     );
-    return component;
+    return (
+      <Container>
+        <TitleContainer>
+          <Text size="h2" margin="10px" bold>Tax Calculator</Text>
+          <Text size="h4" margin="10px" color="gray" italic>Making taxes simpler.</Text>
+        </TitleContainer>   
+        {component}
+        <Footer />
+      </Container>
+    );
   };
 }
 

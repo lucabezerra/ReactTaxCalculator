@@ -9,7 +9,7 @@ const StyledInput = styled.input`
   border-radius: 5px;
   font-weight: bold;
   font-size: 14px;
-  margin: 0 10px;
+  margin: 10px;
 `;
 
 export const Button = (props) => (
