@@ -63,7 +63,7 @@ export class Calculator extends React.Component {
     return (  
         <FormContainer>      
           <Text margin="10px" data-tip="How much do you make in a year, before taxes?">
-            Annual Gross Income: 
+            Annual Gross Income:
           </Text>
           <StyledInput
             type="text"
