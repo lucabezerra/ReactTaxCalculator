@@ -46,7 +46,7 @@ export class Calculator extends React.Component {
     this.setState({ error: false });
   }
 
-  handleCalculateClick = () => {
+  _checkSubmission = () => {
     const { onCalculateClick } = this.props;
     const { amount } = this.state;
 
@@ -55,6 +55,16 @@ export class Calculator extends React.Component {
     } else {
       this.setState({ error: true });
     }
+  }
+
+  onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this._checkSubmission();
+    }
+  }
+
+  handleCalculateClick = () => {
+    this._checkSubmission();
   }
 
   render() {
@@ -70,6 +80,7 @@ export class Calculator extends React.Component {
             placeholder="e.g. 60000"
             onChange={this.onAmountChange}
             onFocus={this.onAmountFocus}
+            onKeyPress={this.onKeyPress}
           />
           <Button type="button" text="Calculate" onClick={this.handleCalculateClick} />
           {error &&

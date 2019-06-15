@@ -60,4 +60,15 @@ describe('Calculator tests', () => {
     button.simulate('click');
     expect(onCalculateClick).toHaveBeenCalled();
   });
+
+  it('calculate function is called on key press', () => {
+    mountComponent();
+    const input = component.find('input');
+    expect(input.length).toBe(2);
+    input.first().instance().value = '60000';
+    input.first().simulate('change');
+    input.first().simulate('keypress', { key: 'Enter' });
+        
+    expect(onCalculateClick).toHaveBeenCalled();
+  });
 });
