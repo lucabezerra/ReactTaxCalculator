@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
+import { map, reduce } from 'lodash';
 
 import Text from '../Text';
 import Button from '../Button';
 import Footer from '../Footer';
-import { calculateTax } from '../../utils';
+import { calculateTaxes, currencyFormatter } from '../../utils';
 
 
 const Container = styled.div`
@@ -17,6 +18,10 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center
+
+  li {
+    list-style-type: decimal;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -26,7 +31,7 @@ const TitleContainer = styled.div`
 `;
 
 const ResultsContainer = styled.div`
-  width: 420px;
+  width: 500px;
   border: dashed 1px lightgray;
   display: flex;
   flex-direction: column;
@@ -37,8 +42,9 @@ const ResultsContainer = styled.div`
 
 export const Results = ({ amount, onResetClick }) => {
 
-  const taxPercentage = calculateTax(amount);
-  const amountDue = amount * taxPercentage;
+  const taxData = calculateTaxes(amount);
+  const taxValues = map(taxData, 'value');
+  const totalTaxes = reduce(taxValues, (sum, n) => sum + n);
 
   // TODO: remember that each percentage is applied to a slice of the total amount
 
@@ -50,16 +56,25 @@ export const Results = ({ amount, onResetClick }) => {
       </TitleContainer>
       <ResultsContainer>
         <Text size="h3" bold>Results:</Text>
-        <Text size="h5" italic>
+        <Text italic>
           This is the tax data for a{' '}
-          <Text size="h5" margin="0" bold>{amount}</Text> CAD annual gross income.
+          <Text bold>{currencyFormatter.format(amount)}</Text> annual gross income.
         </Text>
-        <Text size="h5">
-          You'll pay <Text size="h5" margin="0" bold>{amountDue}</Text> CAD in taxes this year.
+        <Text align="left">
+          You'll pay <Text bold>{currencyFormatter.format(totalTaxes)}</Text>{' '}
+          in taxes this year. Here's the detailed description of each value:
         </Text>
-        <Text size="h5">
-          Your tax percentage is <Text size="h5" margin="0" bold>{taxPercentage}</Text>.
-        </Text>
+        <ul>
+          {map(taxData, data => (
+            <li key={data.value}>
+              <Text>
+                For <Text bold>{currencyFormatter.format(data.amount)}</Text> of the total{' '}
+                you'll pay <Text bold>{currencyFormatter.format(data.value)}</Text>{' '}
+                (<Text bold>{(data.percentage * 100).toFixed(1)}%</Text>).
+              </Text>
+            </li>
+          ))}
+        </ul>
         <Button type="button" text="Try again" onClick={onResetClick} />
       </ResultsContainer>
       <Footer />

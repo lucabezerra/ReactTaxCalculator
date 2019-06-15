@@ -1,20 +1,42 @@
 
-const thresholds = [47630, 95259, 147667, 210371];
+const thresholds = [47630, 47629, 52408, 62704];
 
 const taxPercentages = [0.15, 0.205, 0.26, 0.29, 0.33];
 
-export const calculateTax = (amount) => {
-  if (amount < 0) return null;
+export const calculateTaxes = (amount) => {
+  let currAmount = amount;
+  const values = [];
+  let i = 0;
+  
+  while (currAmount > 0) {
+    // if we're at the last tax tier, all that's left is multiplied by it
+    // if the current amount is less than the threshold, we stop
+    if (i === thresholds.length || currAmount < thresholds[i]) {
+      values.push({
+        amount: currAmount,
+        percentage: taxPercentages[i],
+        value: currAmount * taxPercentages[i],
+      });
+      break;
+    } else if (currAmount >= thresholds[i]) { // everything else follows this logic
+      values.push({
+        amount: thresholds[i],
+        percentage: taxPercentages[i],
+        value: thresholds[i] * taxPercentages[i],
+      });
+    }
 
-  if (amount <= thresholds[0]) {
-    return taxPercentages[0];
-  } else if (amount > thresholds[0] && amount <= thresholds[1]) {
-    return taxPercentages[1];
-  } else if (amount > thresholds[1] && amount <= thresholds[2]) {
-    return taxPercentages[2];
-  } else if (amount > thresholds[2] && amount <= thresholds[3]) {
-    return taxPercentages[3];
-  } else {
-    return taxPercentages[4];
+    // otherwise we keep going
+    currAmount = currAmount - thresholds[i];
+    i++;
   }
+
+  return values;
 }
+
+export const currencyFormatter = new Intl.NumberFormat(
+  'en-US', {
+    style: 'currency',
+    currency: 'CAD',
+  }
+);
