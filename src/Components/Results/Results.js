@@ -39,7 +39,9 @@ export const Results = ({ amount, onResetClick }) => {
       </Text>
       <Text align="left">
         You'll pay <Text bold>{currencyFormatter.format(totalTaxes)}</Text>{' '}
-        in taxes this year. Here's the detailed description of each value:
+        in taxes this year, which corresponds to{' '}
+        <Text bold>{(totalTaxes / amount * 100).toFixed(1)}%</Text>.{' '}
+        Here's the detailed description of each value:
       </Text>
       <ul>
         {map(taxData, data => (
