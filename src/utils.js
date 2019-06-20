@@ -40,3 +40,11 @@ export const currencyFormatter = new Intl.NumberFormat(
     currency: 'CAD',
   }
 );
+
+// copied from https://stackoverflow.com/a/1144788/1060162
+function escapeRegExp(str) {
+  return str.replace(/([.*+?^=!:${}()|[\]/\\])/g, "\\$1");
+}
+export function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}

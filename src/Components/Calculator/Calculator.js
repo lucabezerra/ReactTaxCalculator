@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
-import { isNumber, replace, toNumber } from 'lodash';
+import { isNumber, toNumber } from 'lodash';
 
 import Text from '../Text';
 import Button from '../Button';
+import { replaceAll } from '../../utils';
 
 
 const FormContainer = styled.div`
@@ -37,7 +38,7 @@ export class Calculator extends React.Component {
 
   onAmountChange = (e) => {
     const { value } = e.currentTarget;
-    const sanitizedValue = replace(value, ',', '');
+    const sanitizedValue = replaceAll(value, ',', '');
     const amount = sanitizedValue > 0 ? toNumber(sanitizedValue) : 0;
     this.setState({ amount, error: false });
   };
