@@ -1,5 +1,6 @@
 
-const thresholds = [47630, 47629, 52408, 62704];
+// const thresholds = [47630, 47629, 52408, 62704];  // 2019
+const thresholds = [48535, 48534, 53404, 63895];  // 2020
 
 const taxPercentages = [0.15, 0.205, 0.26, 0.29, 0.33];
 
